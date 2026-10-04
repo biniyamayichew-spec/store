@@ -1,0 +1,338 @@
+Oct4 17:02
+
+<!DOCTYPE html>
+<html lang="am">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ethio Digital Store</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    :root {
+      --bg: #0b1120;
+      --card-bg: #151f33;
+      --primary: #38bdf8;
+      --accent: #22c55e;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #1e293b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); padding: 14px; padding-bottom: 80px; }
+    
+    header { text-align: center; margin-bottom: 18px; margin-top: 6px; }
+    header h1 { font-size: 1.45rem; color: var(--primary); display: flex; align-items: center; justify-content: center; gap: 6px; }
+    header p { font-size: 0.82rem; color: var(--text-muted); margin-top: 3px; }
+
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .badge {
+      font-size: 0.65rem;
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--primary);
+      padding: 2px 6px;
+      border-radius: 4px;
+      align-self: flex-start;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+    .card h3 { font-size: 0.95rem; margin-bottom: 4px; }
+    .card p { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 10px; line-height: 1.3; }
+    .price { font-size: 1.1rem; font-weight: 800; color: var(--accent); margin-bottom: 8px; }
+    
+    .btn {
+      background: var(--primary);
+      color: #0b1120;
+      font-weight: 800;
+      padding: 9px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 0.85rem;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+    .btn:active { opacity: 0.85; transform: scale(0.98); }
+
+    /* Footer Support Bar */
+    .support-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid var(--border);
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+    .support-info { font-size: 0.8rem; color: var(--text-muted); }
+    .support-btn {
+      background: #1e293b;
+      color: var(--primary);
+      border: 1px solid var(--primary);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    /* Modal / Pop-up Payment Box */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      padding: 16px;
+    }
+    .modal {
+      background: var(--card-bg);
+      border: 1px solid var(--primary);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 360px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+    .modal h2 { font-size: 1.2rem; color: var(--primary); margin-bottom: 6px; }
+    .order-desc { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 12px; }
+    .modal-price { font-size: 1.4rem; font-weight: 800; color: var(--accent); margin-bottom: 16px; }
+    
+    .copy-box {
+      background: #0b1120;
+      border: 1px dashed var(--primary);
+      padding: 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-bottom: 14px;
+    }
+    .copy-label { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 2px; }
+    .copy-number { font-size: 1.15rem; font-weight: bold; color: #fff; letter-spacing: 1px; }
+    .copy-hint { font-size: 0.7rem; color: var(--primary); margin-top: 4px; }
+
+    .modal-actions { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+    .btn-done { background: var(--accent); color: #042f13; }
+    .btn-cancel { background: transparent; color: var(--text-muted); border: 1px solid var(--border); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>⚡ Ethio Digital Store</h1>
+    <p>ኦሪጅናል ሰብስክሪፕሽኖች እና አካውንቶች</p>
+  </header>
+
+  <div class="grid">
+    <!-- Gemini Pro -->
+    <div class="card">
+      <div>
+        <span class="badge">🔥 HOT</span>
+        <h3>✦ Gemini Pro</h3>
+        <p>Google AI Pro Account</p>
+      </div>
+      <div>
+        <div class="price">500 ETB</div>
+        <button class="btn" onclick="openPayment('gemini', '✦ Gemini Pro', 500)">ይግዙ</button>
+      </div>
+    </div>
+
+    <!-- Super Grok -->
+    <div class="card">
+      <div>
+        <span class="badge">POPULAR</span>
+        <h3>⌁ Super Grok</h3>
+        <p>7 Days Premium</p>
+      </div>
+      <div>
+        <div class="price">1,000 ETB</div>
+        <button class="btn" onclick="openPayment('grok', '⌁ Super Grok (7 Days)', 1000)">ይግዙ</button>
+      </div>
+    </div>
+
+    <!-- Netflix -->
+    <div class="card">
+      <div>
+        <span class="badge">CINEMA</span>
+        <h3>🎬 Netflix</h3>
+        <p>Ultra HD 1-Month</p>
+      </div>
+      <div>
+        <div class="price">900 ETB</div>
+        <button class="btn" onclick="openPayment('netflix', '🎬 Netflix Premium', 900)">ይግዙ</button>
+      </div>
+    </div>
+
+    <!-- ChatGPT Plus -->
+    <div class="card">
+      <div>
+        <span class="badge">AI</span>
+        <h3>🤖 ChatGPT Plus</h3>
+        <p>GPT-4 & DALL-E</p>
+      </div>
+      <div>
+        <div class="price">1,250 ETB</div>
+        <button class="btn" onclick="openPayment('chatgpt', '🤖 ChatGPT Plus', 1250)">ይግዙ</button>
+      </div>
+    </div>
+
+    <!-- Claude Code -->
+    <div class="card">
+      <div>
+        <span class="badge">DEV</span>
+        <h3>✳ Claude Code</h3>
+        <p>Pro Developer Tool</p>
+      </div>
+      <div>
+        <div class="price">1,500 ETB</div>
+        <button class="btn" onclick="openPayment('claude', '✳ Claude Code', 1500)">ይግዙ</button>
+      </div>
+    </div>
+
+    <!-- CapCut Pro -->
+    <div class="card">
+      <div>
+        <span class="badge">EDIT</span>
+        <h3>✂ CapCut Pro</h3>
+        <p>Full Video Effects</p>
+      </div>
+      <div>
+        <div class="price">550 ETB</div>
+        <button class="btn" onclick="openPayment('capcut', '✂ CapCut Pro', 550)">ይግዙ</button>
+      </div>
+    </div>
+
+    <!-- Spotify -->
+    <div class="card">
+      <div>
+        <span class="badge">MUSIC</span>
+        <h3>🎧 Spotify</h3>
+        <p>Individual Premium</p>
+      </div>
+      <div>
+        <div class="price">400 ETB</div>
+        <button class="btn" onclick="openPayment('spotify', '🎧 Spotify Premium', 400)">ይግዙ</button>
+      </div>
+    </div>
+
+    <!-- Duolingo -->
+    <div class="card">
+      <div>
+        <span class="badge">LEARN</span>
+        <h3>🦉 Duolingo Max</h3>
+        <p>Unlimited Hearts</p>
+      </div>
+      <div>
+        <div class="price">450 ETB</div>
+        <button class="btn" onclick="openPayment('duolingo', '🦉 Duolingo Max', 450)">ይግዙ</button>
+      </div>
+    </div>
+
+    <!-- GitHub Copilot -->
+    <div class="card" style="grid-column: span 2;">
+      <div>
+        <span class="badge">CODING</span>
+        <h3>🐙 GitHub Copilot</h3>
+        <p>AI Pair Programmer</p>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
+        <span class="price" style="margin-bottom:0;">650 ETB</span>
+        <button class="btn" style="width: 45%;" onclick="openPayment('github', '🐙 GitHub Copilot', 650)">ይግዙ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Support Bar -->
+  <div class="support-bar">
+    <div class="support-info">
+      <span>እርዳታ ይፈልጋሉ?</span>
+    </div>
+    <a href="https://t.me/techpro_et" target="_blank" class="support-btn">💬 Support: @techpro_et</a>
+  </div>
+
+  <!-- Payment Modal -->
+  <div id="paymentModal" class="modal-overlay">
+    <div class="modal">
+      <h2 id="modalProdTitle">የትዕዛዝ ክፍያ</h2>
+      <p id="modalProdDesc" class="order-desc">ምርት</p>
+      <div id="modalPrice" class="modal-price">0 ETB</div>
+
+      <!-- Telebirr Box -->
+      <div class="copy-box" onclick="copyNumber()">
+        <div class="copy-label">📱 Telebirr (Engda)</div>
+        <div class="copy-number" id="teleNumber">0918854942</div>
+        <div class="copy-hint" id="copyHint">📋 ለመቅዳት እዚህ ይንኩ</div>
+      </div>
+
+      <div style="font-size: 0.76rem; color: var(--text-muted); line-height: 1.4;">
+        ክፍያውን ፈጽመው የከፈሉበትን ደረሰኝ (Screenshot) ለቦቱ ይላኩ።
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn btn-done" onclick="submitOrder()">✅ ከፍያለሁ / ደረሰኝ እልካለሁ</button>
+        <button class="btn btn-cancel" onclick="closeModal()">ተመለስ</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const tg = window.Telegram ? window.Telegram.WebApp : null;
+    if (tg) {
+      tg.ready();
+      tg.expand();
+    }
+
+    let currentOrder = null;
+
+    function openPayment(id, name, price) {
+      currentOrder = { product_id: id, product_name: name, price: price };
+      document.getElementById('modalProdTitle').innerText = name;
+      document.getElementById('modalProdDesc').innerText = "የተመረጠ ምርት ክፍያ";
+      document.getElementById('modalPrice').innerText = price + " ETB";
+      document.getElementById('paymentModal').style.display = 'flex';
+      document.getElementById('copyHint').innerText = "📋 ለመቅዳት እዚህ ይንኩ";
+    }
+
+    function closeModal() {
+      document.getElementById('paymentModal').style.display = 'none';
+    }
+
+    function copyNumber() {
+      const num = "0918854942";
+      navigator.clipboard.writeText(num).then(() => {
+        document.getElementById('copyHint').innerText = "✅ ተቀድቷል (Copied)!";
+      }).catch(() => {
+        document.getElementById('copyHint').innerText = "0918854942 ተቀድቷል";
+      });
+    }
+
+    function submitOrder() {
+      if (currentOrder && tg) {
+        // መረጃውን ወደ ቦቱ ይልካል
+        tg.sendData(JSON.stringify(currentOrder));
+        tg.close();
+      } else {
+        closeModal();
+      }
+    }
+  </script>
+</body>
+</html>
+
+
