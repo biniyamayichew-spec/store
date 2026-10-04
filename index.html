@@ -1,0 +1,180 @@
+Oct4 14:00
+
+<!DOCTYPE html>
+<html lang="am">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ethio Digital Store</title>
+  <!-- Telegram WebApp SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #151e32;
+      --primary: #38bdf8;
+      --accent: #22c55e;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      padding: 16px;
+      padding-bottom: 30px;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+      padding: 10px 0;
+    }
+    header h1 {
+      font-size: 1.6rem;
+      color: var(--primary);
+      margin-bottom: 4px;
+      letter-spacing: -0.5px;
+    }
+    header p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid #1e293b;
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .card-badge {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--primary);
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+    .card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 6px;
+    }
+    .card p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+    .bottom-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px solid #1e293b;
+    }
+    .price {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .btn {
+      background: var(--primary);
+      color: #0b0f19;
+      font-weight: 700;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.88rem;
+      transition: background 0.2s;
+    }
+    .btn:active {
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>⚡ Ethio Digital Store</h1>
+    <p>ኦሪጅናል የሶፍትዌር እና የ AI አካውንቶች በአስተማማኝ ሁኔታ</p>
+  </header>
+
+  <div class="grid">
+    <!-- Google AI Pro -->
+    <div class="card">
+      <div class="card-top">
+        <span class="card-badge">🔥 HOT</span>
+      </div>
+      <h3>Google AI Pro (Gemini)</h3>
+      <p>ሙሉ የ Gemini Advanced አቅም፣ ፈጣን ፍጥነት እና ከፍተኛ የክላውድ ስቶሬጅ ያለው ኦሪጅናል አካውንት።</p>
+      <div class="bottom-row">
+        <span class="price">750 ETB</span>
+        <a class="btn" href="https://t.me/techpro_et?text=ሰላም%20Google%20AI%20Pro%20መግዛት%20እፈልጋለሁ" target="_blank">ይግዙ</a>
+      </div>
+    </div>
+
+    <!-- Canva Pro -->
+    <div class="card">
+      <div class="card-top">
+        <span class="card-badge">POPULAR</span>
+      </div>
+      <h3>Canva Pro (Lifetime)</h3>
+      <p>ያለ ገደብ ሁሉንም ፕሪሚየም ቴምፕሌቶች፣ ፎንቶች፣ ኤለመንቶች እና Background Remover ይጠቀሙ።</p>
+      <div class="bottom-row">
+        <span class="price">300 ETB</span>
+        <a class="btn" href="https://t.me/techpro_et?text=ሰላም%20Canva%20Pro%20መግዛት%20እፈልጋለሁ" target="_blank">ይግዙ</a>
+      </div>
+    </div>
+
+    <!-- Telegram Premium -->
+    <div class="card">
+      <div class="card-top">
+        <span class="card-badge">VERIFIED</span>
+      </div>
+      <h3>Telegram Premium</h3>
+      <p>ፈጣን ዳውንሎድ፣ 4GB ፋይል አፕሎድ፣ ድምፅን ወደ ጽሑፍ መቀየሪያ እና ልዩ ፕሪሚየም ባጅ።</p>
+      <div class="bottom-row">
+        <span class="price">450 ETB</span>
+        <a class="btn" href="https://t.me/techpro_et?text=ሰላም%20Telegram%20Premium%20መግዛት%20እፈልጋለሁ" target="_blank">ይግዙ</a>
+      </div>
+    </div>
+
+    <!-- ChatGPT Plus -->
+    <div class="card">
+      <div class="card-top">
+        <span class="card-badge">AI TOOL</span>
+      </div>
+      <h3>ChatGPT Plus</h3>
+      <p>የቅርብ ጊዜውን GPT ሞዴል፣ DALL-E ምስል ፈጣሪ እና ከፍተኛ የፍለጋ አቅም ያግኙ።</p>
+      <div class="bottom-row">
+        <span class="price">900 ETB</span>
+        <a class="btn" href="https://t.me/techpro_et?text=ሰላም%20ChatGPT%20Plus%20መግዛት%20እፈልጋለሁ" target="_blank">ይግዙ</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    if (window.Telegram && window.Telegram.WebApp) {
+      window.Telegram.WebApp.ready();
+      window.Telegram.WebApp.expand();
+    }
+  </script>
+</body>
+</html>
+
+
